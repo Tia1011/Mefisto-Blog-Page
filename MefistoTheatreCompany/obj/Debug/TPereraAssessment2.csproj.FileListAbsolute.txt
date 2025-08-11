@@ -1,0 +1,2 @@
+C:\Users\tiani\OneDrive\Desktop\College\MultiPlatform\MefistoTheatreCompany\MefistoTheatreCompany\obj\Debug\TPereraAssessment2.csproj.AssemblyReference.cache
+C:\Users\tiani\OneDrive\Desktop\College\MultiPlatform\MefistoTheatreCompany\MefistoTheatreCompany\obj\Debug\TPereraAssessment2.csproj.CoreCompileInputs.cache

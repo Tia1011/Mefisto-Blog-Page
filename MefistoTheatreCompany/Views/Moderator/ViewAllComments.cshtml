@@ -1,0 +1,60 @@
+﻿@model IEnumerable<MefistoTheatreCompany.Models.Comment>
+
+@{
+    ViewBag.Title = "ViewAllComments";
+}
+
+<h2>View All Comments</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(comment => comment.Blog.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(comment => comment.User.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(comment => comment.Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(comment => comment.Approved)
+        </th>
+        <th>
+            @Html.DisplayNameFor(comment => comment.DatePosted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(comment => comment.DateEdited)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var comment in ViewBag.Comments)
+    {
+        <tr>
+            <td>
+                @comment.Blog.Title
+            </td>
+            <td>
+                @comment.User.Firstname
+            </td>
+            <td>
+                @comment.Content
+            </td>
+            <td>
+                @comment.Approved
+            </td>
+            <td>
+                @comment.DatePosted
+            </td>
+            <td>
+                @comment.DateEdited
+            </td>
+            <td>
+                @Html.ActionLink("Details", "CommentDetails", "Moderator", new { id = comment.CommentId }, null) |
+                @Html.ActionLink("Delete", "DeleteComment", "Moderator", new { id = comment.CommentId }, null)
+            </td>
+        </tr>
+    }
+
+</table>

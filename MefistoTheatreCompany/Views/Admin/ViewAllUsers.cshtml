@@ -1,0 +1,15 @@
+﻿
+@model IEnumerable<MefistoTheatreCompany.Models.User>
+
+<div class="row">
+    
+
+    <div class="col-md-3">
+        @Html.ActionLink("View All Staff", "ViewAllStaff", "Admin", null, new { @class = "btn btn-outline-dark" })
+
+    </div>
+
+    <div class="col-md-3">
+        @Html.ActionLink("View All Members", "ViewAllMembers", "Admin", null, new { @class = "btn btn-outline-dark" })
+    </div>
+</div>

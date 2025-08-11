@@ -1,0 +1,89 @@
+﻿
+
+    @*<style>
+
+
+        #cookie {
+            z-index: 1000;
+            position: fixed;
+            width: 400px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px 30px 20px 30px;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0px 3px 10px 5px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            border-radius: 30px 30px 0 0;
+        }
+
+
+            #cookie button {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                border: none;
+                background-color: red;
+                padding: 10px 50px;
+                margin-top: -5px;
+                color: white;
+                transition: all ease 0.5s;
+                
+            }
+
+                #cookie button:hover {
+                    background-color: darkred;
+                }
+
+            #cookie h3 {
+                font-size: 22px;
+            }
+
+        #cookie p {
+            font-size: 13px;
+        }
+
+        #cookie a {
+            color: gray;
+            text-decoration: underline;
+        }
+    </style>*@
+
+
+    @*<div id="cookie" data-dismiss="alert">
+        <p>This website uses cookies. By accepting our cookies, you are accepting our <a href="/Home/CookiePolicy">cookie policy</a>.</p>
+        <button onclick="acceptCookies()" >Accept</button>
+    </div>
+
+   
+<script>
+    function acceptCookies(event) {
+
+     
+        // Check if the user is authenticated
+        var isAuthenticated = '@User.Identity.IsAuthenticated';
+
+        if (isAuthenticated) {
+            // Get the username of the authenticated user
+            var userName = '@User.Identity.Name';
+             
+
+            // Set a cookie or perform any other necessary actions
+            document.cookie = "UserSettings=accepted; expires=" + new Date(new Date().getTime() + 86400 * 1000).toUTCString();
+           
+
+            // Hide the cookie popup
+            document.getElementById("cookie").style.display = "none";
+
+
+            // Redirect to the SetUserNameCookie action with the username
+            window.location.href = '/Home/SetUserNameCookie?userName=' + encodeURIComponent(userName);
+             
+            
+        } else {
+            // Handle the case when the user is not authenticated
+            console.log('User is not authenticated. Unable to set username.');
+        }
+    }
+</script>*@

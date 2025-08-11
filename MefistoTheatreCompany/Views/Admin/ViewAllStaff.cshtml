@@ -1,0 +1,91 @@
+﻿@model IEnumerable<MefistoTheatreCompany.Models.Staff>
+<br />
+<p>
+
+    @Html.ActionLink("Create New Staff", "CreateEmployee")
+</p>
+
+@if (TempData["AlertMessage"] != null)
+{
+    <br />
+    <div class="alert alert-success">
+        <strong>@TempData["AlertMessage"]</strong>
+    </div>
+    <br />
+}
+
+<br />
+<hr />
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find users by Username : @Html.TextBox("SearchString")
+
+        <input type="submit" value="Search" />
+    </p>
+
+}
+
+<br />
+<hr />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StaffId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lastname)
+        </th>
+
+
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+
+
+
+
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lastname)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+
+
+            <td>
+                @Html.ActionLink("Edit", "EditEmployee", new { controller = "Admin", id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { controller = "Admin", id = item.Id })|
+                @Html.ActionLink("Delete", "Delete", new { controller = "Admin", id = item.Id })|
+                @Html.ActionLink("Change Role", "ChangeRole", new { controller = "Admin", id = item.Id })
+            </td>
+        </tr>
+    }
+</table>
+
+@Html.ActionLink("Back", "ViewAllUsers")

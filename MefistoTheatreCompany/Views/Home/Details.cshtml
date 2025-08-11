@@ -1,0 +1,131 @@
+﻿@model MefistoTheatreCompany.Models.BlogPost
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@Model.Title</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.CategoryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Firstname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <div style="color:midnightblue">
+            <dt>
+                @Html.DisplayNameFor(model => model.Comments)
+            </dt>
+            <dd>
+
+
+                @if (Model.Comments != null)
+                {
+
+
+                    foreach (var Comment in Model.Comments)
+                    {
+                        <p>
+                            <strong>Username: </strong>
+                            @Html.DisplayFor(modelItem => Comment.User.UserName) |
+
+
+                            <strong>Content: </strong>
+
+                            @Html.DisplayFor(modelItem => Comment.Content) |
+
+
+                            <strong>DatePosted: </strong>
+
+                            @Html.DisplayFor(modelItem => Comment.DatePosted) |
+
+                            <strong>DateEdited: </strong>
+
+                            @Html.DisplayFor(modelItem => Comment.DateEdited)
+                        </p>
+
+                    }
+                }
+                </dd>
+            </div>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Approved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Approved)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatePosted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatePosted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateEdited)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateEdited)
+        </dd>
+
+    </dl>
+</div>
+
+<div>
+    @if (User.Identity.IsAuthenticated)
+    {
+
+
+        if (User.IsInRole("Suspend"))
+        {
+
+            <bold>You are suspended</bold>
+        }
+        else
+        {
+            <h4>@Html.ActionLink("Leave a Comment", "AddComment", "Home", new { id = Model.BlogPostId }, null)</h4>
+
+        }
+
+
+
+    }
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

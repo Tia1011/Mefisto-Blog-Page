@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mefisto Theatre Website</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyRhq0J3R+gaWYlf2I3pO+qDHUuR8NfNaa" crossorigin="anonymous"> <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyRhq0J3R+gaWYlf2I3pO+qDHUuR8NfNaa" crossorigin="anonymous"></script>
+            @Styles.Render("~/Content/css")
+            @Scripts.Render("~/bundles/modernizr")
+            </head> 
+<body>
+   <div class="container body-content">
+        @*<div id="cookie">
+            <p>This website uses cookies. By accepting our cookies, you are accepting our <a href="/Home/CookiePolicy">cookie policy</a>.</p>
+            <button onclick="acceptCookies()">Accept</button>
+        </div>*@
+
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            @Html.ActionLink("Mefisto Theatre Website", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button> <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li> @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" }) </li>
+                    <li> @Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" }) </li>
+                    <li> @Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" }) </li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        //if staff is logged in, display the links available to Member
+                        if (User.IsInRole("Employee") && !User.IsInRole("Suspended"))
+                        {
+                            <li> @Html.ActionLink("My Posts", "Index", "Staff", new { area = "" }, new { @class = "nav-link" }) </li>
+
+                            <li> @Html.ActionLink("Post an ad", "Create", "Staff", new { area = "" }, new { @class = "nav-link" }) </li>
+
+                        }
+
+
+                        //if admin is logged in, display the links available to admin
+                        if (User.IsInRole("Admin") && !User.IsInRole("Suspended"))
+                        {
+                            <li> @Html.ActionLink("Admin Dashboard", "Index", "Admin", new { area = "" }, new { @class = "nav-link" }) </li>
+
+                        }
+
+                        // if moderator is logged in, display the links available to admin
+                        if (User.IsInRole("Moderator") && !User.IsInRole("Suspended"))
+                        {
+                            <li> @Html.ActionLink("Moderator", "Index", "Moderator", new { area = "" }, new { @class = "nav-link" }) </li>
+
+                        }
+
+
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+
+
+    @RenderBody()
+    <hr /> <footer>
+        <p>
+            &copy; @DateTime.Now.Year
+            - Mefisto Theatre Company
+        </p>
+    </footer>
+
+    @Html.Partial("Cookie")
+</div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+
+
+
+</body> 
+</html>
+                
+    

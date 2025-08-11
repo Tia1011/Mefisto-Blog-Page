@@ -1,0 +1,102 @@
+﻿@model IEnumerable<MefistoTheatreCompany.Models.BlogPost>
+@{
+    ViewBag.Title = "ViewAllPosts";
+}
+
+<h2>View All Posts</h2>
+
+
+<h3>Posts to approve : </h3>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(unApproved => unApproved.Category.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(unApproved => unApproved.User.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(unApproved => unApproved.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(unApproved => unApproved.Content)
+        </th>
+    </tr>
+
+    @foreach (var unApproved in ViewBag.UnapprovedPosts)
+    {
+
+        <tr>
+            <td>
+                @unApproved.Category.CategoryName
+            </td>
+            <td>
+                @unApproved.User.Firstname
+            </td>
+            <td>
+                @unApproved.Title
+            </td>
+            <td>
+                @unApproved.Content
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "EditPosts", "Moderator", new { id = unApproved.BlogPostId }, null) |
+                @Html.ActionLink("Details", "Details", "Moderator", new { id = unApproved.BlogPostId }, null) |
+                @Html.ActionLink("Delete", "DeletePost", "Moderator", new { id = unApproved.BlogPostId }, null)
+            </td>
+        </tr>
+    }
+</table>
+
+
+<br />
+
+
+<h3>Approved Posts : </h3>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(approved => approved.Category.CategoryName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(approved => approved.User.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(approved => approved.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+    </tr>
+
+    @foreach (var approved in ViewBag.ApprovedPosts)
+    {
+        <tr>
+            <td>
+                @approved.Category.CategoryName
+            </td>
+            <td>
+                @approved.User.Firstname
+            </td>
+            <td>
+                @approved.Title
+            </td>
+            <td>
+                @approved.Content
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "EditPosts", "Moderator", new { id = approved.BlogPostId }, null) |
+                @Html.ActionLink("Details", "Details", "Moderator", new { id = approved.BlogPostId }, null) |
+                @Html.ActionLink("Delete", "DeletePost", "Moderator", new { id = approved.BlogPostId }, null)
+            </td>
+        </tr>
+    }
+</table>
+
+
+

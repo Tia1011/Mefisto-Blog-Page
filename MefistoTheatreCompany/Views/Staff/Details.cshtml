@@ -1,0 +1,94 @@
+﻿@model MefistoTheatreCompany.Models.BlogPost
+
+
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div>
+    <h4>BlogPost</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.CategoryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Firstname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Approved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Approved)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatePosted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatePosted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateEdited)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateEdited)
+        </dd>
+
+        
+        <div style="color:cornflowerblue">
+            @foreach (var comment in Model.Comments)
+            {
+                @Html.DisplayFor(modelItem => modelItem.Comments)
+                <div>
+                    @Html.DisplayFor(modelItem => comment.Content)
+
+                    <div style="font-size: 12px; color:dimgrey; text-align:right">
+                        @Html.DisplayFor(modelItem => comment.DatePosted)
+                    </div>
+                </div>
+            }
+
+        </div>
+
+       
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BlogPostId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

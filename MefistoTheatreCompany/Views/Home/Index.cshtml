@@ -1,0 +1,247 @@
+﻿@model IEnumerable<MefistoTheatreCompany.Models.BlogPost>
+@using MefistoTheatreCompany.Models
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Index";
+
+    //retrieve cookie
+    HttpCookie mefistoCookie = Request.Cookies["UserName"];
+}
+
+<div style="background-color :aliceblue">
+
+    <br />
+    <hr />
+
+
+    @using (Html.BeginForm())
+    {
+        <p>
+            Find blogs by category: @Html.TextBox("SearchString")
+
+            <input type="submit" placeholder="Search..." value="Search" />
+        </p>
+    }
+
+    <br />
+    <hr />
+
+
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Category.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Firstname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+
+            </th>
+
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Firstname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+
+                <td>
+
+                    <div>
+                        @Html.DisplayFor(modelItem => item.Content)
+                    </div>
+                    <br />
+                    <content>
+                        <strong>Comments: </strong>
+
+
+                        @foreach (var comment in item.Comments)
+                        {
+
+                            <div style="color:cornflowerblue">
+                                @Html.DisplayFor(modelItem => comment.User.UserName)
+
+                            </div>
+
+                            <div>
+                                @Html.DisplayFor(modelItem => comment.Content)
+
+                                <div>
+                                    @if (Request.IsAuthenticated && comment.UserId == User.Identity.GetUserId() && !comment.User.IsSuspended)
+                                    {
+
+                                        <div>
+                                            @Html.ActionLink("Edit", "EditComment", "Home", new { id = comment.CommentId }, null)
+                                        </div>
+
+                                        <div>
+                                            @Html.ActionLink("Delete", "DeleteComment", "Home", new { id = comment.CommentId }, null)
+                                        </div>
+
+
+                                    }
+                                </div>
+
+                                <div style="font-size: 12px; color:dimgrey; text-align:right">
+                                    @Html.DisplayFor(modelItem => comment.DatePosted)
+                                </div>
+
+                            </div>
+
+                            <hr />
+
+                        }
+                        <div>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+
+
+                                if (!User.IsInRole("Suspended"))
+                                {
+                                    <h4>@Html.ActionLink("Leave a Comment", "AddComment", "Home", new { id = item.BlogPostId }, null)</h4>
+
+
+                                    <br />
+
+
+                                }
+
+
+
+                            }
+                        </div>
+
+
+                    </content>
+
+                </td>
+
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.BlogPostId }, null)
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+</div>
+
+<div>
+
+    <style>
+
+
+        #cookie {
+            z-index: 1000;
+            position: fixed;
+            width: 400px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px 30px 20px 30px;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0px 3px 10px 5px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            border-radius: 30px 30px 0 0;
+        }
+
+
+            #cookie button {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                border: none;
+                background-color: red;
+                padding: 10px 50px;
+                margin-top: -5px;
+                color: white;
+                transition: all ease 0.5s;
+            }
+
+                #cookie button:hover {
+                    background-color: darkred;
+                }
+
+            #cookie h3 {
+                font-size: 22px;
+            }
+
+            #cookie p {
+                font-size: 13px;
+            }
+
+            #cookie a {
+                color: gray;
+                text-decoration: underline;
+            }
+    </style>
+
+
+    @if (mefistoCookie == null || mefistoCookie.Value != "accepted")
+    {
+        var isAuthenticated = User.Identity.IsAuthenticated ? "True" : "False";
+
+        if (isAuthenticated != "True")
+        {
+            <div id="cookie" data-dismiss="alert">
+                <p>This website uses cookies. By accepting our cookies, you are accepting our <a href="/Home/CookiePolicy">cookie policy</a>.</p>
+                <button onclick="acceptCookies()">Accept</button>
+            </div>
+        }
+    }
+
+
+    <script>
+    function acceptCookies() {
+
+
+        // Check if the user is authenticated
+        var isAuthenticated = '@User.Identity.IsAuthenticated';
+
+        if (isAuthenticated) {
+            // Get the username of the authenticated user
+            var userName = '@User.Identity.Name';
+
+
+            // Set a cookie or perform any other necessary actions
+            document.cookie = "UserSettings=accepted; expires=" + new Date(new Date().getTime() + 86400 * 1000).toUTCString();
+
+
+            // Hide the cookie popup
+            document.getElementById("cookie").style.display = "none";
+
+
+            // Redirect to the SetUserNameCookie action with the username
+            window.location.href = '/Home/SetUserNameCookie?userName=' + encodeURIComponent(userName);
+
+
+        } else {
+            // Handle the case when the user is not authenticated
+            console.log('User is not authenticated. Unable to set username.');
+        }
+    }
+    </script>
+
+
+
+
+</div>
